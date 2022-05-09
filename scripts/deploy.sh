@@ -24,8 +24,8 @@ then
 fi
 
 echo "start init-letsencrypt.sh"
-chmod +x init-letsencrypt.sh
-./init-letsencrypt.sh
+chmod +x /home/ubuntu/srv/ubuntu/init-letsencrypt.sh
+./home/ubuntu/srv/ubuntu/init-letsencrypt.sh
 
 echo "start docker-compose up: ubuntu"
-sudo docker-compose up -d
+sudo docker-compose -f /home/ubuntu/srv/ubuntu/docker-compose.yml up --build -d
