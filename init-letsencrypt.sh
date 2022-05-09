@@ -30,7 +30,8 @@ fi
 echo "### Creating dummy certificate for $domains ..."
 path="/etc/letsencrypt/live/$domains"
 mkdir -p "$data_path/conf/live/$domains"
-/home/ubuntu/srv/ubuntu/docker-compose run --rm --entrypoint "\
+cd "/home/ubuntu/srv/ubuntu/"
+docker-compose run --rm --entrypoint "\
   openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
     -keyout '$path/privkey.pem' \
     -out '$path/fullchain.pem' \
@@ -43,7 +44,8 @@ echo "### Starting nginx ..."
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
-/home/ubuntu/srv/ubuntu/docker-compose run --rm --entrypoint "\
+cd "/home/ubuntu/srv/ubuntu/"
+docker-compose run --rm --entrypoint "\
   rm -Rf /etc/letsencrypt/live/$domains && \
   rm -Rf /etc/letsencrypt/archive/$domains && \
   rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
@@ -66,7 +68,8 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-/home/ubuntu/srv/ubuntu/docker-compose run --rm --entrypoint "\
+cd "/home/ubuntu/srv/ubuntu/"
+docker-compose run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
@@ -77,4 +80,4 @@ if [ $staging != "0" ]; then staging_arg="--staging"; fi
 echo
 
 echo "### Reloading nginx ..."
-/home/ubuntu/srv/ubuntu/docker-compose exec nginx nginx -s reload
+docker-compose exec nginx nginx -s reload
