@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "start init-letsencrypt.sh"
-sudo sh ./init-letsencrypt.sh
+sudo sh /home/ubuntu/srv/ubuntu/init-letsencrypt.sh
 
 echo "start docker-compose up: ubuntu"
-sudo docker-compose up
+sudo /home/ubuntu/srv/ubuntu/docker-compose up
