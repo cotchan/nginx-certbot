@@ -1,4 +1,4 @@
-name: remote ssh command for deploy # Deploy to EC2
+name: remote ssh command for deploy nginx-certbot
 on:
   push:
     branches: [production]
